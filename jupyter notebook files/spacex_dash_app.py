@@ -62,12 +62,13 @@ def update_pie_chart(site_value):
     if site_value in launch_sites:
         filtered_df = spacex_df[spacex_df['Launch Site'] == site_value]
         success_counts = filtered_df['class'].value_counts()
-        pie_chart = px.pie(success_counts, values=success_counts.values, labels=success_counts.index, title='Success vs. Failed Counts for'+ site_value)
+        print(success_counts.head())
+        pie_chart = px.pie(success_counts, values=success_counts.values, names=success_counts.index, title='Success vs. Failed Counts for'+ site_value)
         return pie_chart
     elif site_value == 'ALL':
         success_counts = spacex_df['Launch Site'].value_counts()
         print(success_counts)
-        pie_chart = px.pie(success_counts, values=success_counts.values, labels=success_counts.index, title='Success vs. Failed Counts for All Sites')
+        pie_chart = px.pie(success_counts, values=success_counts.values, names=success_counts.index, title='Success vs. Failed Counts for All Sites')
         return pie_chart
 
 
@@ -87,6 +88,7 @@ def update_scatter_chart(site_value, slider_value):
     if site_value != 'ALL':
         filtered_df = filtered_df[filtered_df['Launch Site'] == site_value]
     scatter_chart = px.scatter(filtered_df, x = 'Payload Mass (kg)', y = 'class', color = 'Booster Version Category', title = f'Correlation between Payload and Success for {site_value}')
+
     return scatter_chart
 
 
